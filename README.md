@@ -229,6 +229,8 @@ feature_selection_params = processor.get_params_by_id(stat, 91)
 processor.graph_sensor_gestures(range(500, 1300), 2)
 ```
 
+![Пример графика](img/graph_sensor_gestures_output.png)
+
 ### Графическое отображение целевого значения и предсказанного
 
 Метод `processor.plot_results` позволяет визуализировать целевое значение и предсказанное значение модели на графике.
