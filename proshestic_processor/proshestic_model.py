@@ -1,9 +1,21 @@
 import pandas as pd
 
-def model_data_prepare(self, use_add: False):
+def model_data_prepare(self, use_add:bool =  False):
+    """ Подготовка X, y для обучения
+
+    Args:
+        use_add (False): Использовать признаки из add_features_1
+
+    Returns:
+        _type_: Функция возвращает датасет для обучения, согласно выбранным признакам - X, датасет для проверки, 
+        который не менялся, кроме сдвига данных - X_init, и y - целевой признак
+    """
+    # Использовать ли дополнительно полученные признаки
     self.use_add = use_add
+    
     X = pd.DataFrame()
     X = self.gestures_clean[self.CLEAN_SENSORS_FINAL].copy()
+    
     X_init = pd.DataFrame()
     X_init = self.gestures[self.CLEAN_SENSORS_FINAL].copy()
 

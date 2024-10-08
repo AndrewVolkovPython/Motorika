@@ -2,7 +2,46 @@ from matplotlib import pyplot as plt
 import plotly.express as px
 import numpy as np
 
-def plot_sensors(self, cols, range_: range, df_source = 'init'):
+def plot_sensors(self, cols: list, range_: range, df_source = 'init'):
+    """
+    Визуализирует указанные столбцы из выбранного DataFrame на множестве подграфиков.
+
+    Параметры:
+    ----------
+    cols : list
+        Список названий столбцов, которые будут отображены на графиках.
+    
+    range_ : range
+        Диапазон индексов строк для отображения на графиках (напр. range(0, 100)).
+    
+    df_source : str, по умолчанию 'init'
+        Источник данных для построения графиков. Может быть одним из:
+        - 'init': исходные данные (self.gestures)
+        - 'clean': очищенные данные (self.gestures_clean)
+        - 'af1': данные из дополнительного признака 1 (self.additional_features_1)
+
+    Исключения:
+    -----------
+    ValueError:
+        Выбрасывается, если значение `df_source` не принадлежит к ['init', 'clean', 'af1'].
+    
+    Описание:
+    ---------
+    Функция создает сетку из 50 подграфиков (10x5) и отображает данные для каждого столбца
+    из списка `cols`. Графики будут построены на основе выбранного DataFrame, а данные для графиков
+    извлекаются в пределах диапазона строк, указанного в `range_`.
+    
+    Если количество указанных столбцов меньше 50, лишние подграфики удаляются.
+
+    Пример использования:
+    ---------------------
+    >>> self.plot_sensors(cols=['sensor1', 'sensor2'], range_=range(0, 100), df_source='clean')
+    """
+    
+    valid_sources = ['init', 'clean', 'af1']
+    
+    if df_source not in valid_sources:
+        raise ValueError(f"Некорректно указан источник: {df_source}. Должен быть один из {valid_sources}")
     
     if df_source == 'init':
         df = self.gestures
@@ -28,10 +67,34 @@ def plot_sensors(self, cols, range_: range, df_source = 'init'):
     plt.show()     
 
 def plotly_sensor(self, gesture, sensor, df_source = 'init'):
-    '''
-    Plotly график для указанного сенсора и типа жеста
-    ''' 
-    
+    """
+    Строит интерактивный график с помощью Plotly для указанного сенсора и типа жеста.
+
+    Параметры:
+    ----------
+    gesture : str
+        Тип жеста, для которого необходимо построить график. 
+        Должен соответствовать одному из значений в столбце 'gesture' в DataFrame.
+
+    sensor : str
+        Название сенсора, данные которого будут визуализированы. 
+        Должен соответствовать одному из названий столбцов в DataFrame.
+
+    df_source : str, optional
+        Источник данных для построения графика. 
+        Принимает значения 'init' для использования начального DataFrame или 
+        'clean' для использования очищенного DataFrame. По умолчанию 'init'.
+
+    Возвращает:
+    ----------
+    None
+
+    Примечания:
+    ----------
+    Функция фильтрует данные по указанному жесту и строит график зависимости 
+    значения указанного сенсора от временных шагов. 
+    Используется библиотека Plotly для создания интерактивных графиков.
+    """
     if df_source == 'init':
         df = self.gestures
     else:
@@ -42,9 +105,44 @@ def plotly_sensor(self, gesture, sensor, df_source = 'init'):
 
     fig.show()
     
-def graph_sensor_gestures(self, range_, type):
+def graph_sensor_gestures(self, range_ : range, type : int = 1):
+    """
+    Строит графики для сенсорных данных и жестов на основе переданного диапазона и типа графика.
+
+    Параметры:
+    ----------
+    range_ : range
+        Диапазон индексов данных для визуализации. 
+        Указывает, какие временные шаги будут включены в график.
     
-    # if ('diff' not in self.gestures.columns) | ('diff' not in self.gestures_clean.columns):
+    type : int, optional
+        Тип графика, который нужно построить. 
+        1 - стандартный график с тремя подграфиками (сенсоры, разница, жест).
+        2 - график с четырьмя подграфиками, добавляющий расположение жестовов после сдвига.
+        По умолчанию 1.
+
+    Возвращает:
+    ----------
+    None
+
+    Исключения:
+    ----------
+    ValueError
+        Если указанный тип графика не входит в допустимый диапазон [1, 2].
+    
+    Примечания:
+    ----------
+    Функция проверяет наличие признака 'diff' в данных `gestures_clean`. 
+    Если признак отсутствует, будет выведено предупреждение. 
+    Графики отображают сенсорные данные, разницу и информацию о жестах, 
+    с вертикальными линиями, обозначающими временные интервалы.
+    """    
+    
+    valid_sources = range(1,3)
+    
+    if type not in valid_sources:
+        raise ValueError(f"Некорректно указан тип графика: {type}. Должен быть один из {valid_sources}")
+    
     if 'diff' not in self.gestures_clean.columns:
         self.__log(f"{'Добавьте сначала diff признак через запуск cleaned_df_diff_adding()'} ")        
         return
@@ -88,6 +186,32 @@ def graph_sensor_gestures(self, range_, type):
     plt.tight_layout()    
 
 def plot_results(self, y_true, y_pred, figzize : tuple = (20,4) , linewidht : float = 1):
+    """
+    Визуализирует истинные значения и предсказанные значения на графике.
+
+    Параметры:
+    ----------
+    y_true : array-like
+        Истинные значения (например, метки классов) для сравнения с предсказанными.
+    
+    y_pred : array-like
+        Предсказанные значения, которые будут отображены на графике.
+    
+    figzize : tuple, optional
+        Размер фигуры в формате (ширина, высота). По умолчанию (20, 4).
+    
+    linewidht : float, optional
+        Толщина линий на графике. По умолчанию 1.
+
+    Возвращает:
+    ----------
+    None
+
+    Примечания:
+    ----------
+    График отображает истинные и предсказанные значения, с использованием сетки и легенды для
+    улучшения визуализации. На оси Y отображаются метки классов, определяемые в self.GESTURES.
+    """    
     fig = plt.figure(figsize=figzize)
     plt.plot(y_true,  c='C0', label='y_true', linewidth=linewidht)
     plt.plot(y_pred, c='C1', label='y_pred', linewidth=linewidht)
