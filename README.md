@@ -1,6 +1,6 @@
 # README
 
-[Описание задачи](data/Motorika_task.docx)
+[Описание задачи](https://docs.google.com/document/d/174KhzX4EVqHIJV6GiWskP1KkhYUS_JeJa8WS6tgIwYY/edit#heading=h.sj9glk599oik)
 
 
 ## Рабочий процесс создания данных для модели. Вариант 1.
@@ -87,7 +87,6 @@
    ```python
 
     processor.vectors_cousine()
-    processor.change_params_and_apply(0.9935822256469482,25,.95,(0,0))
     steps = processor.get_cosine_steps(15)[:-3]
 
     selection_params = {
@@ -229,8 +228,6 @@ feature_selection_params = processor.get_params_by_id(stat, 91)
 processor.graph_sensor_gestures(range(500, 1300), 2)
 ```
 
-![Пример графика](img/graph_sensor_gestures_output.png)
-
 ### Графическое отображение целевого значения и предсказанного
 
 Метод `processor.plot_results` позволяет визуализировать целевое значение и предсказанное значение модели на графике.
@@ -246,7 +243,6 @@ processor.graph_sensor_gestures(range(500, 1300), 2)
 processor.plot_results(y_test, y_pred_test, (20, 4), 0.2)
 ```
 
-![Пример графика](img/plot_result_output.png)
 
 ### Получение статистики для модели
 

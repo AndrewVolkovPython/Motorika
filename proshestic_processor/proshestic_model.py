@@ -21,8 +21,11 @@ def model_data_prepare(self, use_add:bool =  False):
 
     if use_add:
         df_add_1 = self.additional_features_1[self.CLEAN_SENSORS_ADD_FEATURE_1].copy()
-        X.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1] = df_add_1.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1].values
-        X_init.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1] = df_add_1.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1].values
+        if df_add_1.shape[0] != 0:
+            X.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1] = df_add_1.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1].values
+            X_init.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1] = df_add_1.loc[:,self.CLEAN_SENSORS_ADD_FEATURE_1].values
+        else:
+            print('Датасет с дополнительными признаками нулевой!!!')    
     y = self.gestures_clean['gesture'].values 
     
     return X, X_init, y
