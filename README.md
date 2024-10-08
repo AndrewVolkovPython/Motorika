@@ -227,6 +227,7 @@ feature_selection_params = processor.get_params_by_id(stat, 91)
 ```python
 processor.graph_sensor_gestures(range(500, 1300), 2)
 ```
+![Пример графика](img/graph_sensor_gestures_output.png)
 
 ### Графическое отображение целевого значения и предсказанного
 
@@ -242,7 +243,7 @@ processor.graph_sensor_gestures(range(500, 1300), 2)
 ```python
 processor.plot_results(y_test, y_pred_test, (20, 4), 0.2)
 ```
-
+![Пример графика](img/plot_result_output.png)
 
 ### Получение статистики для модели
 
