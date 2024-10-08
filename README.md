@@ -246,6 +246,7 @@ processor.graph_sensor_gestures(range(500, 1300), 2)
 processor.plot_results(y_test, y_pred_test, (20, 4), 0.2)
 ```
 
+![Пример графика](img/plot_result_output.png)
 
 ### Получение статистики для модели
 
