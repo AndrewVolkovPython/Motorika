@@ -9707,5 +9707,47 @@
             "subsample": 0.8,
             "random_state": 42
         }
+    },
+    {
+        "pilote_id": 4,
+        "cosine": 0.990531918048938,
+        "sensor_power": 25.0,
+        "cosine_add_feature_1": 0.999,
+        "clean_sensor_final": [
+            "3",
+            "4",
+            "5",
+            "6",
+            "12",
+            "13",
+            "16",
+            "17",
+            "21",
+            "22",
+            "27",
+            "28",
+            "30",
+            "38",
+            "39"
+        ],
+        "clean_sensors_add_feature_1": [],
+        "use_add": false,
+        "stat_train": "{\"precision\":{\"Neutral\":1.0,\"Open\":1.0,\"Pistol\":1.0,\"Thumb\":1.0,\"OK\":1.0,\"Grab\":1.0},\"recall\":{\"Neutral\":1.0,\"Open\":1.0,\"Pistol\":1.0,\"Thumb\":1.0,\"OK\":1.0,\"Grab\":1.0},\"f1-score\":{\"Neutral\":1.0,\"Open\":1.0,\"Pistol\":1.0,\"Thumb\":1.0,\"OK\":1.0,\"Grab\":1.0}}",
+        "stat_test": "{\"precision\":{\"Neutral\":0.9785010451,\"Open\":0.9923664122,\"Pistol\":0.9863387978,\"Thumb\":0.9781553398,\"OK\":0.9778393352,\"Grab\":0.9693593315},\"recall\":{\"Neutral\":0.989731199,\"Open\":0.9653465347,\"Pistol\":0.9730458221,\"Thumb\":0.9595238095,\"OK\":0.9514824798,\"Grab\":0.958677686},\"f1-score\":{\"Neutral\":0.9840840841,\"Open\":0.9786700125,\"Pistol\":0.9796472185,\"Thumb\":0.96875,\"OK\":0.9644808743,\"Grab\":0.9639889197}}",
+        "stat_init": "{\"precision\":{\"Neutral\":0.9956371569,\"Open\":0.9985961628,\"Pistol\":0.9973418394,\"Thumb\":0.9953822473,\"OK\":0.995782815,\"Grab\":0.993989071},\"recall\":{\"Neutral\":0.9979350137,\"Open\":0.9934823091,\"Pistol\":0.9946977731,\"Thumb\":0.9913132345,\"OK\":0.9905610907,\"Grab\":0.9918211559},\"f1-score\":{\"Neutral\":0.996784761,\"Open\":0.9960326721,\"Pistol\":0.9960180515,\"Thumb\":0.993343574,\"OK\":0.9931650894,\"Grab\":0.9929039301}}",
+        "shift": [
+            0,
+            0
+        ],
+        "random_state": 0,
+        "test_size": 0.0,
+        "model": "rf",
+        "model_params": {
+            "n_estimators": 140,
+            "max_depth": 97,
+            "min_samples_split": 2,
+            "min_samples_leaf": 1,
+            "max_features": "sqrt"
+        }
     }
 ]

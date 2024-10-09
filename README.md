@@ -63,18 +63,10 @@
    - `vectors`, которая хранит данные в формате словаря: `[сенсор][жест][шаг] -> вектор`, 
    - `vectors_sum`, которая хранит данные в формате словаря: `[сенсор] -> среднее векторное сходство между всеми векторами данного сенсора`.
 
-3. **Применение метода `change_params_and_apply()`**  
-   Метод принимает на вход следующие параметры: 
-   - нижний уровень косинусной схожести для основного датасета, 
-   - порог для фильтрации сенсоров по мощности сигнала, 
-   - нижний уровень косинусной схожести для дополнительно рассчитанного датасета, 
-   - смещение для начала и окончания рассчитанного жеста.  
-   Метод ничего не возвращает, обновляет данные смещения и рассчитывает сильные признаки, которые затем будут поданы в модель.
-
-4. **Полуавтоматизация процесса**  
+3. **Полуавтоматизация процесса**  
    Мы можем полуавтоматизировать процесс, используя метод `processor.get_cosine_steps`, который вернет список значений косинусного сходства для основного датасета. Это позволит на каждом шаге добавлять или убирать по одному признаку в порядке его значимости для модели.
 
-5. **Использование метода `fit_and_predict()`**  
+4. **Использование метода `fit_and_predict()`**  
    Мы используем метод `fit_and_predict`, куда передаем следующие параметры:
    - `id` пилота,
    - тип модели: `rf` или `lgb`,
@@ -227,7 +219,6 @@ feature_selection_params = processor.get_params_by_id(stat, 91)
 ```python
 processor.graph_sensor_gestures(range(500, 1300), 2)
 ```
-![Пример графика](img/graph_sensor_gestures_output.png)
 
 ### Графическое отображение целевого значения и предсказанного
 
@@ -243,7 +234,7 @@ processor.graph_sensor_gestures(range(500, 1300), 2)
 ```python
 processor.plot_results(y_test, y_pred_test, (20, 4), 0.2)
 ```
-![Пример графика](img/plot_result_output.png)
+
 
 ### Получение статистики для модели
 
@@ -251,7 +242,14 @@ processor.plot_results(y_test, y_pred_test, (20, 4), 0.2)
 
 #### Пример использования
 ```python
-processor.get_statistic(y_train, y_pred_train, 1)
-processor.get_statistic(y_test, y_pred_test, 2)
-processor.get_statistic(y, y_pred_train_init, 3)
+
+processor.get_statistic(y_train, y_pred_train,1, False)
+processor.get_statistic(y_test, y_pred_test,2, False)
+processor.get_statistic(y, y_pred_train_init,3, False)
+
+model_parameters = processor.get_params()
+model_parameters['model_params'] = <dict с параметрами модели>
+model_parameters['model'] = 'rf'
+# сохранить параметры в файл статистики (сохранение путем добавления к уж существующим данным)
+processor.save_stat('st.json', model_parameters)
 ```

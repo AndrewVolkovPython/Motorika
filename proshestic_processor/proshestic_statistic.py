@@ -142,19 +142,19 @@ def get_params(self) -> dict:
         - 'shift' : float — значение сдвига.
     """    
     return {
-        'pilote_id' : self.pilote_id,
-        'cosine' : self.cosine,
-        'sensor_power' : self.sensor_power,
-        'cosine_add_feature_1' : self.cosine_add_feature_1,
+        'pilote_id' : int(self.pilote_id),
+        'cosine' : float(self.cosine),
+        'sensor_power' : float(self.sensor_power),
+        'cosine_add_feature_1' : float(self.cosine_add_feature_1),
         'clean_sensor_final' : self.CLEAN_SENSORS_FINAL,
         'clean_sensors_add_feature_1' : self.CLEAN_SENSORS_ADD_FEATURE_1,
-        'use_add' : self.use_add,
+        'use_add' : bool(self.use_add),
         'stat_train' : self.stat_train,            
         'stat_test' : self.stat_test,            
         'stat_init' : self.stat_init, 
         'shift' : self.shift,         
-        'random_state' : self.random_state,
-        'test_size': self.test_size_split, 
+        'random_state' : int(self.random_state),
+        'test_size': float(self.test_size_split), 
         'model' : self.model_name
     }
 

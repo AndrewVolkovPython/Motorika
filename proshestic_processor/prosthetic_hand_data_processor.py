@@ -2,6 +2,7 @@ import proshestic_processor.proshestic_graphs as pg
 import proshestic_processor.proshestic_model as pm
 import proshestic_processor.proshestic_statistic as ps
 import proshestic_processor.prosthetic_hand_data_processing as pr
+import proshestic_processor.proshestic_inference as pi
 
 
 import os
@@ -44,6 +45,10 @@ class ProstheticHandDataProcessor:
     
     change_params_and_apply = pr.change_params_and_apply
     fit_and_predict = pr.fit_and_predict
+    
+    # inference
+    
+    inference = pi.inference
     
     def __init__(self, 
                  files: str | list, 
@@ -604,7 +609,11 @@ class ProstheticHandDataProcessor:
                 
         self.vectors =  vectors_all
         self.__log(f"{'Расчет косинусного сходства между векторами, сгруппированными по сенсорам, доступны через <object>.vectors_sum'} ")
-        self.vectors_sum = self.calc_mean_cos_for_vector()    
+        self.vectors_sum = self.calc_mean_cos_for_vector()  
+        
+        self.create_additional_features_1()
+        self.create_additional_features_1_vector()
+        self.calculate_additional_features_1_cosine()          
 
     def interpolate_vector(self, vector, new_length : int):
         """
